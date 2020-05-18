@@ -51,3 +51,22 @@ export interface IExecResponse {
   output: string;
 }
 ```
+## Does piping work?
+
+When you think of piping in a case list this, you often think of something like
+
+```
+cat test.ts | sed -e 's/^/prefix/'
+```
+
+In that case, piping is actually done by the shell, so `exec` cannot do that itself. However, it can do this, which accomplishes the same thing:
+
+```
+let r = await exec(
+  `bash -c "cat test.ts | sed -e 's/^/prefix/'"`,
+);
+```
+
+Similarly, you can do redirection.
+
+If you want to implement your own piping within the app, you can (currently) capture the output of one exec call and pass it to the next.
