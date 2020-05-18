@@ -21,7 +21,7 @@ await exec('ssh foo@xxx.xxx.com "docker service scale some_service=3"');
 
 ## Run commands in "follow" mode
 Some commands like `tail -f` or `docker logs -f` have the ability to run in "follow" mode.  In this mode,
-the continue to run while data is appended to stdout over time.  You can do this with:
+they continue to run while data is appended to stdout over time.  You can do this with:
 ```
 import { exec } from "https://deno.land/x/exec/mod.ts";
 await exec('docker service logs someapi -f');
@@ -32,7 +32,7 @@ In this case, the connection to stdout will remain open until you terminate the 
 Sometimes you need to capture the output of a command.  We do this to get git log checksums:
 ```
 import { exec } from "https://deno.land/x/exec/mod.ts";
-let response = await exec('git log -1 "--format=%H"', {output: 'capture'});
+let response = await exec('git log -1 "--format=%H"', {output: OutputMode.Capture});
 ```
 
 With the response object in hand, you can grab the status code and any data that would have been
