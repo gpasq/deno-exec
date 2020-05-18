@@ -29,7 +29,7 @@ await exec('docker service logs someapi -f');
 In this case, the connection to stdout will remain open until you terminate the function.
 
 ## Capture the output of an external command
-Sometimes you need to capture the output of a command.  We do this to get git log checksums:
+Sometimes you need to capture the output of a command.  For example, I do this to get git log checksums:
 ```
 import { exec } from "https://deno.land/x/exec/mod.ts";
 let response = await exec('git log -1 "--format=%H"', {output: OutputMode.Capture});
