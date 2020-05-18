@@ -85,3 +85,20 @@ export const exec = async (
     output: response.trim(),
   };
 };
+
+export const execSequence = async (
+  commands: string[],
+  options = { output: OutputMode.StdOut, continueOnError: false },
+): Promise<IExecResponse[]> => {
+  let results: IExecResponse[] = [];
+
+  for (let i = 0; i < commands.length; i++) {
+    let result = await exec(commands[i], options);
+    results.push(result);
+    if (options.continueOnError == false && result.status.code != 0) {
+      break;
+    }
+  }
+
+  return results;
+};
