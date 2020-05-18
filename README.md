@@ -70,3 +70,20 @@ let r = await exec(
 Similarly, you can do redirection.
 
 If you want to implement your own piping within the app, you can (currently) capture the output of one exec call and pass it to the next.
+
+## Command Sequences
+In addition to running commands, you can run a sequence of commands in one call.  For example:
+
+```
+let response = await execSequence([
+      "echo Hello World",
+      "ls -l",
+      "cat helloworld.txt",
+    ], { output: OutputMode.None, continueOnError: false });
+```
+
+In this case, the commands are simply run one after the other, in sequence.  The OutputMode is applied to 
+all commands in the sequence, and the results of each command are returned.  
+
+If an error occurs (command result != 0), the `continueOnError` flag determines if execution continues or
+returns immediated after the error.  The `continueOnError` default value is `false`.
