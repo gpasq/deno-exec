@@ -1,0 +1,34 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch foo",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "deno",
+            "runtimeArgs": [
+                "run"
+                "--inspect",
+                "--allow-run",
+                "--allow-net",
+                "foo.ts"
+            ],
+            "port": 9229
+        },
+        {
+            "name": "Launch test",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "deno",
+            "runtimeArgs": [
+                "test"
+                "--inspect",
+                "--allow-run",
+                "test.ts"
+            ],
+            "port": 9229
+        }
+    ]
+}
