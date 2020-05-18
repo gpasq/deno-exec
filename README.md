@@ -16,7 +16,10 @@ await exec('echo Hello World');
 Big deal.  But lets say you're running a docker swarm and want to scale a process to 3 nodes:
 ```
 import { exec } from "https://deno.land/x/exec/mod.ts";
+
 await exec('ssh foo@xxx.xxx.com "docker service scale some_service=3"');
+await exec('ssh foo@xxx.xxx.com "docker service ls"');
+
 ```
 
 ## Run commands in "follow" mode
