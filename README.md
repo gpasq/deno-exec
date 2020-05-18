@@ -10,12 +10,12 @@ For example:
 ## Run a simple external command and display the output
 To run an external command and display the output:
 ```
-import { camelCase } from "https://deno.land/x/exec/mod.ts";
+import { exec } from "https://deno.land/x/exec/mod.ts";
 await exec('echo Hello World');
 ```
 Big deal.  But lets say you're running a docker swarm and want to scale a process to 3 nodes:
 ```
-import { camelCase } from "https://deno.land/x/exec/mod.ts";
+import { exec } from "https://deno.land/x/exec/mod.ts";
 await exec('ssh foo@xxx.xxx.com "docker service scale some_service=3"');
 ```
 
@@ -23,7 +23,7 @@ await exec('ssh foo@xxx.xxx.com "docker service scale some_service=3"');
 Some commands like `tail -f` or `docker logs -f` have the ability to run in "follow" mode.  In this mode,
 the continue to run while data is appended to stdout over time.  You can do this with:
 ```
-import { camelCase } from "https://deno.land/x/exec/mod.ts";
+import { exec } from "https://deno.land/x/exec/mod.ts";
 await exec('docker service logs someapi -f');
 ```
 In this case, the connection to stdout will remain open until you terminate the function.
@@ -31,7 +31,7 @@ In this case, the connection to stdout will remain open until you terminate the 
 ## Capture the output of an external command
 Sometimes you need to capture the output of a command.  We do this to get git log checksums:
 ```
-import { camelCase } from "https://deno.land/x/exec/mod.ts";
+import { exec } from "https://deno.land/x/exec/mod.ts";
 let response = await exec('git log -1 "--format=%H"', {output: 'capture'});
 ```
 
