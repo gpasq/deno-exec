@@ -86,4 +86,4 @@ In this case, the commands are simply run one after the other, in sequence.  The
 all commands in the sequence, and the results of each command are returned.  
 
 If an error occurs (command result != 0), the `continueOnError` flag determines if execution continues or
-returns immediated after the error.  The `continueOnError` default value is `false`.
+returns immediately after the error.  The `continueOnError` default value is `false`.
