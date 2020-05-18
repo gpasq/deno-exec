@@ -32,7 +32,7 @@ In this case, the connection to stdout will remain open until you terminate the 
 Sometimes you need to capture the output of a command.  For example, I do this to get git log checksums:
 ```
 import { exec } from "https://deno.land/x/exec/mod.ts";
-let response = await exec('git log -1 "--format=%H"', {output: OutputMode.Capture});
+let response = await exec('git log -1 --format=%H', {output: OutputMode.Capture});
 ```
 
 With the response object in hand, you can grab the status code and any data that would have been
