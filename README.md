@@ -87,3 +87,7 @@ all commands in the sequence, and the results of each command are returned.
 
 If an error occurs (command result != 0), the `continueOnError` flag determines if execution continues or
 returns immediately after the error.  The `continueOnError` default value is `false`.
+
+## Releases
+
+Current version is 0.0.5.  This version cleans up some typescript stuff, and adds a `verbose` flag to the options
