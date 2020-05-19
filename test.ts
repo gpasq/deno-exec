@@ -7,7 +7,10 @@ import { exec, execSequence, IExecResponse, OutputMode } from "./mod.ts";
 Deno.test({
   name: "Testing Simple Commands",
   async fn(): Promise<void> {
-    let response = await exec("echo Hello World", { output: OutputMode.None });
+    let response = await exec(
+      "echo Hello World",
+      { output: OutputMode.None, verbose: true },
+    );
     assertEquals(response.output, "");
     assertEquals(response.status.code, 0);
 
@@ -15,25 +18,37 @@ Deno.test({
     assertEquals(response.output, "");
     assertEquals(response.status.code, 0);
 
-    response = await exec("echo Hello World", { output: OutputMode.Capture });
+    response = await exec(
+      "echo Hello World",
+      { output: OutputMode.Capture, verbose: true },
+    );
     assertEquals(response.output, "Hello World");
     assertEquals(response.status.code, 0);
 
-    response = await exec("cat helloworld.txt", { output: OutputMode.Capture });
+    response = await exec(
+      "cat helloworld.txt",
+      { output: OutputMode.Capture, verbose: true },
+    );
     assertEquals(response.output, "Hello World");
     assertEquals(response.status.code, 0);
 
-    response = await exec("echo Hello World", { output: OutputMode.Tee });
+    response = await exec(
+      "echo Hello World",
+      { output: OutputMode.Tee, verbose: true },
+    );
     assertEquals(response.output, "Hello World");
     assertEquals(response.status.code, 0);
 
-    response = await exec("cat helloworld.txt", { output: OutputMode.Tee });
+    response = await exec(
+      "cat helloworld.txt",
+      { output: OutputMode.Tee, verbose: true },
+    );
     assertEquals(response.output, "Hello World");
     assertEquals(response.status.code, 0);
 
     response = await exec(
       "cat anonexistentfile.txt",
-      { output: OutputMode.Capture },
+      { output: OutputMode.Capture, verbose: true },
     );
     assertEquals(response.output, "");
     assertEquals(response.status.code, 1);
@@ -47,7 +62,7 @@ Deno.test({
       "echo Hello World",
       "ls -l",
       "cat helloworld.txt",
-    ], { output: OutputMode.None, continueOnError: false });
+    ], { output: OutputMode.None, continueOnError: false, verbose: true });
 
     assertEquals(response.length, 3);
     response.forEach((r: IExecResponse) => {

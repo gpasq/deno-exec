@@ -1,3 +1,5 @@
+import { v4 } from "https://deno.land/std/uuid/mod.ts";
+
 function splitCommand(command: string): string[] {
   var myRegexp = /[^\s"]+|"([^"]*)"/gi;
   var splits = [];
@@ -32,11 +34,27 @@ export interface IExecResponse {
   output: string;
 }
 
+interface IOptions {
+  output?: OutputMode;
+  verbose?: boolean;
+  continueOnError?: boolean;
+}
+
 export const exec = async (
   command: string,
-  options = { output: OutputMode.StdOut },
+  options: IOptions = { output: OutputMode.StdOut, verbose: false },
 ): Promise<IExecResponse> => {
   let splits = splitCommand(command);
+
+  let uuid = "";
+  if (options.verbose) {
+    uuid = v4.generate();
+    console.log(``);
+    console.log(`Exec Context: ${uuid}`);
+    console.log(`    Exec Options: `, options);
+    console.log(`    Exec Command: ${command}`);
+    console.log(`    Exec Command Splits:  [${splits}]`);
+  }
 
   let p = Deno.run({ cmd: splits, stdout: "piped", stderr: "piped" });
 
@@ -77,18 +95,28 @@ export const exec = async (
   p.stderr?.close();
   p.close();
 
-  return {
+  let result = {
     status: {
       code: status.code,
       success: status.success,
     },
     output: response.trim(),
   };
+  if (options.verbose) {
+    console.log("    Exec Result: ", result);
+    console.log(`Exec Context: ${uuid}`);
+    console.log(``);
+  }
+  return result;
 };
 
 export const execSequence = async (
   commands: string[],
-  options = { output: OutputMode.StdOut, continueOnError: false },
+  options: IOptions = {
+    output: OutputMode.StdOut,
+    continueOnError: false,
+    verbose: false,
+  },
 ): Promise<IExecResponse[]> => {
   let results: IExecResponse[] = [];
 
