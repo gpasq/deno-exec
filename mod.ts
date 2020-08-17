@@ -18,10 +18,14 @@ function splitCommand(command: string): string[] {
 }
 
 export enum OutputMode {
-  None = 0, // no output, just run the command
-  StdOut, // dump the output to stdout
-  Capture, // capture the output and return it
-  Tee, // both dump and capture the output
+  /** no output, just run the command */
+  None = 0,
+  /** dump the output to stdout */
+  StdOut,
+  /** capture the output and return it */
+  Capture,
+  /** both dump and capture the output */
+  Tee,
 }
 
 export interface IExecStatus {
