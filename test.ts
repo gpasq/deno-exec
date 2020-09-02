@@ -50,7 +50,7 @@ Deno.test({
       "cat anonexistentfile.txt",
       { output: OutputMode.Capture, verbose: true },
     );
-    assertEquals(response.output, "");
+    assertEquals(response.output, "cat: anonexistentfile.txt: No such file or directory");
     assertEquals(response.status.code, 1);
   },
 });
