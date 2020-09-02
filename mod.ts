@@ -66,8 +66,9 @@ export const exec = async (
 
     while (true) {
       try {
-        let result = await p.stdout?.read(buff);
-        if (!result) {
+        let stdoutResult = await p.stdout?.read(buff);
+        let stderrResult = await p.stderr?.read(buff);
+        if (!stdoutResult && !stderrResult) {
           break;
         }
 
