@@ -57,9 +57,9 @@ export const exec = async (
     console.log(`    Exec Command Splits:  [${splits}]`);
   }
 
-  const execOptions = { cmd: splits, stdout: "piped", stderr: "piped" };
+  const execOptions: Deno.RunOptions = { cmd: splits, stdout: "piped", stderr: "piped" };
   if (options.cwd) {
-    execOptions['cwd'] = options.cwd;
+    execOptions.cwd = options.cwd;
   }
   let p = Deno.run(execOptions);
 
