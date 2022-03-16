@@ -38,6 +38,7 @@ interface IOptions {
   output?: OutputMode;
   verbose?: boolean;
   continueOnError?: boolean;
+  cwd?: string;
 }
 
 export const exec = async (
@@ -56,7 +57,11 @@ export const exec = async (
     console.log(`    Exec Command Splits:  [${splits}]`);
   }
 
-  let p = Deno.run({ cmd: splits, stdout: "piped", stderr: "piped" });
+  const execOptions = { cmd: splits, stdout: "piped", stderr: "piped" };
+  if (options.cwd) {
+    execOptions['cwd'] = options.cwd;
+  }
+  let p = Deno.run(execOptions);
 
   let response = "";
   let decoder = new TextDecoder();
