@@ -39,6 +39,9 @@ interface IOptions {
   verbose?: boolean;
   continueOnError?: boolean;
   cwd?: string;
+  env?: {
+    [key: string]: string;
+  };
 }
 
 export const exec = async (
@@ -60,6 +63,9 @@ export const exec = async (
   const execOptions: Deno.RunOptions = { cmd: splits, stdout: "piped", stderr: "piped" };
   if (options.cwd) {
     execOptions.cwd = options.cwd;
+  }
+  if (options.env) {
+    execOptions.env = options.env;
   }
   let p = Deno.run(execOptions);
 
