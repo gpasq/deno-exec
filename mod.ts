@@ -1,4 +1,4 @@
-import { v4 } from "https://deno.land/std/uuid/mod.ts";
+import { v1 } from "https://deno.land/std/uuid/mod.ts";
 
 function splitCommand(command: string): string[] {
   var myRegexp = /[^\s"]+|"([^"]*)"/gi;
@@ -52,7 +52,7 @@ export const exec = async (
 
   let uuid = "";
   if (options.verbose) {
-    uuid = v4.generate();
+    uuid = "" + v1.generate();
     console.log(``);
     console.log(`Exec Context: ${uuid}`);
     console.log(`    Exec Options: `, options);
